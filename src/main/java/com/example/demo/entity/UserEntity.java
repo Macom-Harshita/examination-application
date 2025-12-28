@@ -1,11 +1,6 @@
 package com.example.demo.entity;
 
 
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class UserEntity{ //implemnets UserDetails
+public class UserEntity{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,36 +24,6 @@ public class UserEntity{ //implemnets UserDetails
 	roles role;
 	String createdAt;
 	
-//	@Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of();
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return true;
-//    }
-//	
 	public int getId() {
 		return id;
 	}

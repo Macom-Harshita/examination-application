@@ -1,13 +1,17 @@
 package com.example.demo.repository;
 
-import java.util.List;
 
+import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.UserEntity;
 
-@Component
+@Repository
 public interface UserRepository extends CrudRepository<com.example.demo.entity.UserEntity, Integer>{
-	public List<UserEntity> findByemail(String email);
+	Optional<UserEntity> findByemail(String email);
+
+    @Query("SELECT u.id id FROM UserEntity u WHERE u.email = :email")
+    boolean existsByemail(String email);
 }
