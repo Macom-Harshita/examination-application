@@ -20,9 +20,9 @@ public class SecurityConfig {
 	public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
 		this.jwtFilter = jwtFilter;
 	}
-	
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
         	.csrf(csrf -> csrf.disable())
         	.formLogin(form -> form.disable())
@@ -31,14 +31,13 @@ public class SecurityConfig {
         			.requestMatchers("/admin/**").hasRole("ADMIN")
         			.requestMatchers("/examiner/**").hasAnyRole("EXAMINER", "ADMIN")
         			.requestMatchers("/candidate/**").hasRole("CANDIDATE")
-        			.requestMatchers("/users/**").hasRole("ADMIN")
         		)
         	.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	    return http.build();
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 }

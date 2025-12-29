@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
-
+import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,6 +9,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,8 +27,29 @@ public class UserEntity{
 	String password;
 	@Enumerated(EnumType.STRING)
 	roles role;
-	String createdAt;
+	LocalDateTime createdAt;
+	@OneToMany(mappedBy = "createdBy")
+	List<ExamEntity> examsCreated;
+	@ManyToMany
+	@JoinTable(
+		    name = "exam_candidates",
+		    joinColumns = @JoinColumn(name = "user_id"),
+		    inverseJoinColumns = @JoinColumn(name = "exam_id")
+		)
+	List<ExamEntity> examsGiven;
 	
+	public List<ExamEntity> getExamsGiven() {
+		return examsGiven;
+	}
+	public void setExamsGiven(List<ExamEntity> examsGiven) {
+		this.examsGiven = examsGiven;
+	}
+	public List<ExamEntity> getExamsCreated() {
+		return examsCreated;
+	}
+	public void setExamsCreated(List<ExamEntity> exams) {
+		this.examsCreated = exams;
+	}
 	public int getId() {
 		return id;
 	}
@@ -54,10 +80,10 @@ public class UserEntity{
 	public void setRole(roles role) {
 		this.role = role;
 	}
-	public String getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 	
